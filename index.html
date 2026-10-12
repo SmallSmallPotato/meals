@@ -131,7 +131,7 @@ html {
   align-items: center !important;
 }
 
-/* 全局背景與絕對置中設定 */
+/* 全局背景：固定背景，不隨捲動亂跑 */
 body {
   font-family: 'Zen Maru Gothic', 'Quicksand', cursive, sans-serif;
   background-color: #fffdf9;
@@ -140,6 +140,7 @@ body {
     radial-gradient(#fde68a 12%, transparent 13%);
   background-size: 24px 24px;
   background-position: 0 0, 12px 12px;
+  background-attachment: fixed; /* 讓圓點背景固定不動 */
   color: #451a03;
   display: flex;
   justify-content: center;
@@ -151,15 +152,16 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* 主卡片：鎖定舒服的寬度與最小寬度，防止在大螢幕變窄長 */
+/* -----------------------------------------
+   💻 電腦版卡片樣式（寬螢幕適用）
+----------------------------------------- */
 .collage-card {
   background: #ffffff;
   border: 2px solid #f59e0b;
   border-radius: 24px;
   padding: 40px 35px;
-  width: 88%;
-  max-width: 580px;
-  min-width: 420px; /* 確保不管螢幕多寬，卡片絕不會變窄 */
+  width: 560px;
+  min-width: 420px;
   margin: auto;
   box-shadow: 0 12px 30px rgba(217, 119, 6, 0.08);
   position: relative;
@@ -201,14 +203,14 @@ body {
   font-weight: 500;
 }
 
-/* 結果展示區：固定足夠的最小高度，容納多行餐廳不變形 */
+/* 結果展示區：固定足夠的最小高度 */
 .result-box {
   background: #fffbeb80;
   border: 2px dashed #fcd34d;
   border-radius: 18px;
   padding: 22px 20px;
   margin: 20px 0;
-  min-height: 190px; /* 確保長餐廳清單也有足夠空間 */
+  min-height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,7 +230,7 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* 主按鈕：流暢點擊回饋與適當寬度 */
+/* 主按鈕：流暢點擊回饋 */
 .collage-card button {
   background: linear-gradient(135deg, #ef4444, #dc2626) !important;
   color: #ffffff !important;
@@ -285,6 +287,33 @@ body {
 
 .tag-link a:active {
   transform: scale(0.97);
+}
+
+/* -----------------------------------------
+   📱 手機版專屬優化（自動縮小與留白）
+----------------------------------------- */
+@media screen and (max-width: 600px) {
+  .collage-card {
+    width: 92% !important;
+    min-width: unset !important;
+    padding: 25px 18px !important;
+    margin: 10px auto !important;
+    border-radius: 20px;
+  }
+  
+  .collage-title {
+    font-size: 1.5em !important;
+  }
+  
+  .result-box {
+    min-height: 150px !important;
+    padding: 15px 10px !important;
+    margin: 12px 0 !important;
+  }
+  
+  .food-text {
+    font-size: 1.4em !important;
+  }
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Home" tags="" position="600,300" size="100,100">&lt;&lt;nobr&gt;&gt;
 /* 1. 初始化資料庫 */
 &lt;&lt;set $foodList to [
