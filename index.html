@@ -290,29 +290,45 @@ body {
 }
 
 /* -----------------------------------------
-   📱 手機版專屬優化（自動縮小與留白）
+   📱 手機版專屬優化（完美固定成第二張圖的大小與比例）
 ----------------------------------------- */
 @media screen and (max-width: 600px) {
+  /* 讓 body 在手機上能夠完整容納並置中卡片，留出漂亮的四周背景 */
+  body {
+    padding: 15px 0 !important;
+    align-items: center !important;
+  }
+
   .collage-card {
-    width: 92% !important;
+    width: 90% !important;
+    max-width: 420px !important; /* 鎖定手機上的最大寬度，像第二張圖一樣精緻 */
     min-width: unset !important;
-    padding: 25px 18px !important;
-    margin: 10px auto !important;
-    border-radius: 20px;
+    padding: 28px 20px !important;
+    margin: auto !important;     /* 上下左右絕對置中 */
+    border-radius: 22px;
   }
   
   .collage-title {
-    font-size: 1.5em !important;
+    font-size: 1.6em !important;
   }
   
+  /* 鎖定結果容器的高度與內距，防止切換時過大或過長 */
   .result-box {
-    min-height: 150px !important;
-    padding: 15px 10px !important;
-    margin: 12px 0 !important;
+    min-height: 160px !important;
+    max-height: 220px !important;
+    overflow-y: auto !important;  /* 如果清單較長時可輕微捲動，絕不撐破卡片 */
+    padding: 15px 12px !important;
+    margin: 15px 0 !important;
   }
   
   .food-text {
-    font-size: 1.4em !important;
+    font-size: 1.5em !important;
+  }
+
+  /* 調整手機上的按鈕間距與大小，避免超出卡片 */
+  .collage-card button {
+    padding: 12px 20px !important;
+    font-size: 1em !important;
   }
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Home" tags="" position="600,300" size="100,100">&lt;&lt;nobr&gt;&gt;
 /* 1. 初始化資料庫 */
@@ -330,25 +346,20 @@ body {
   { name: &quot;🧋 港式茶餐廳&quot;, places: [&quot;光榮冰室&quot;, &quot;荷里活冰室&quot;, &quot;旺旺冰室&quot;, &quot;華康&quot;, &quot;永星&quot;], quote: &quot;地道港味，出色真味！&quot; },
   { name: &quot;🍱 澎湃住家飯&quot;, places: [&quot;住家菜&quot;, &quot;榮式燒雞扒&quot;, &quot;蛇王弟&quot;, &quot;新花&quot;], quote: &quot;家常滋味，耐人尋味～&quot; }
 ]&gt;&gt;
-
 /* 2. 備份可用陣列，方便作排除篩選 */
 &lt;&lt;set $availableFoods to clone($foodList)&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
-
 &lt;div class=&quot;collage-card&quot;&gt;
   &lt;div class=&quot;washi-tape&quot;&gt;&lt;/div&gt;
-  
   &lt;div class=&quot;collage-title&quot;&gt;🎨 是日飲食建議&lt;/div&gt;
   &lt;div class=&quot;collage-subtitle&quot;&gt;✨ 靈魂拷問求籤筒 ✨&lt;/div&gt;
-
-  &lt;!-- 結果展示區域 --&gt;
-  &lt;div class=&quot;result-box&quot; id=&quot;food-display&quot;&gt;
+  &lt;!-- 結果展示區域 --&gt;\
+  &lt;div class=&quot;result-box&quot; id=&quot;food-display&quot;&gt;\
     &lt;div style=&quot;color: #d97706; font-size: 1.1em; font-weight: 500;&quot;&gt;
       🏷️ 隨機抽出今日美食籤！
     &lt;/div&gt;
   &lt;/div&gt;
-
-  &lt;!-- 操作按鈕區域 --&gt;
+  &lt;!-- 操作按鈕區域 --&gt;\
   &lt;div id=&quot;action-buttons&quot;&gt;
     &lt;&lt;button &quot;🎲 幫我做決定！&quot;&gt;&gt;
       &lt;&lt;run
@@ -357,26 +368,21 @@ body {
           /* 如果池子空了就重置 */
           if ($availableFoods.length === 0) {
             $availableFoods = clone($foodList);
-          }
-          
+          }          
           let index = Math.floor(Math.random() * $availableFoods.length);
-          let category = $availableFoods[index];
-          
+          let category = $availableFoods[index];          
           /* 將抽中的類別暫存至全域 */
           window.currentCategory = category;
           window.currentCategoryIndex = index;
-
           let count = 0;
           let timer = setInterval(function() {
             let tempItem = $foodList[Math.floor(Math.random() * $foodList.length)];
             jQuery(&#39;#food-display&#39;).html(
               &#39;&lt;div class=&quot;food-text&quot; style=&quot;opacity: 0.4; font-size: 1.4em;&quot;&gt;&#39; + tempItem.name + &#39;&lt;/div&gt;&#39;
             );
-            count++;
-            
+            count++;            
             if (count &gt; 8) {
-              clearInterval(timer);
-              
+              clearInterval(timer);              
               /* 渲染第一階段結果：類別 + 備選餐廳清單 + 籤文 */
               let placesList = category.places.join(&#39; / &#39;);
               jQuery(&#39;#food-display&#39;).hide().html(
@@ -388,7 +394,6 @@ body {
                   &#39;&lt;div style=&quot;color: #78350f; font-size: 0.85em; background: #fef3c7; padding: 4px 8px; border-radius: 8px; display: inline-block;&quot;&gt;💡 &#39; + category.quote + &#39;&lt;/div&gt;&#39; +
                 &#39;&lt;/div&gt;&#39;
               ).fadeIn(250);
-
               /* 動態更換操作按鈕：二次篩選/排除 或 進入二級抽籤 */
               jQuery(&#39;#action-buttons&#39;).html(
                 &#39;&lt;div style=&quot;display: flex; flex-direction: column; gap: 10px; align-items: center;&quot;&gt;&#39; +
@@ -399,7 +404,6 @@ body {
             }
           }, 60);
         };
-
         /* 拒絕並排除目前選項 */
         window.rejectAndRedraw = function() {
           /* 從可用清單中移除當前抽中的選項 */
@@ -408,12 +412,10 @@ body {
           }
           window.drawCategory();
         };
-
         /* 第二階段抽籤函數：選具體餐廳 */
         window.confirmAndDrawPlace = function() {
           let category = window.currentCategory;
-          let places = category.places;
-          
+          let places = category.places;          
           let count = 0;
           let timer = setInterval(function() {
             let tempPlace = places[Math.floor(Math.random() * places.length)];
@@ -424,11 +426,9 @@ body {
               &#39;&lt;/div&gt;&#39;
             );
             count++;
-
             if (count &gt; 8) {
               clearInterval(timer);
-              let finalPlace = places[Math.floor(Math.random() * places.length)];
-              
+              let finalPlace = places[Math.floor(Math.random() * places.length)];              
               jQuery(&#39;#food-display&#39;).hide().html(
                 &#39;&lt;div&gt;&#39; +
                   &#39;&lt;div style=&quot;color: #059669; font-size: 1em; font-weight: bold; background: #d1fae5; padding: 4px 10px; border-radius: 12px; display: inline-block;&quot;&gt;🎉 今日終極決定！&lt;/div&gt;&#39; +
@@ -436,7 +436,6 @@ body {
                   &#39;&lt;div style=&quot;color: #78350f; font-size: 0.85em;&quot;&gt;屬於 【&#39; + category.name + &#39;】&lt;/div&gt;&#39; +
                 &#39;&lt;/div&gt;&#39;
               ).fadeIn(200);
-
               /* 抽完後提供重新抽籤的選項 */
               jQuery(&#39;#action-buttons&#39;).html(
                 &#39;&lt;button onclick=&quot;window.drawCategory()&quot;&gt;🎲 重新抽選別的類別&lt;/button&gt;&#39;
@@ -444,14 +443,11 @@ body {
             }
           }, 60);
         };
-
         /* 執行第一次抽籤 */
         window.drawCategory();
       &gt;&gt;
     &lt;&lt;/button&gt;&gt;
   &lt;/div&gt;
-
-  &lt;br&gt;&lt;br&gt;
   &lt;span class=&quot;tag-link&quot;&gt;[[📌 重新整理/返回主頁|Start]]&lt;/span&gt;
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="2" name="Start" tags="" position="600,425" size="100,100">&lt;&lt;nobr&gt;&gt;
 /* 1. 初始化資料庫 */
