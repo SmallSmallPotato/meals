@@ -104,7 +104,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<tw-storydata name="Meals" startnode="1" creator="Twine" creator-version="2.12.1" format="SugarCube" format-version="2.37.3" ifid="3C4995B4-17BB-4E7A-A147-6AD15B139C97" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* 引入手帳風格的英文字體與圓體 */
+	<tw-storydata name="Meals" startnode="2" creator="Twine" creator-version="2.12.1" format="SugarCube" format-version="2.37.3" ifid="3C4995B4-17BB-4E7A-A147-6AD15B139C97" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* 引入手帳風格的英文字體與圓體 */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
 
 /* 1. 鎖定網頁捲軸，防止畫面左右晃動 */
@@ -430,12 +430,37 @@ body {
             count++;
             if (count &gt; 8) {
               clearInterval(timer);
-              let finalPlace = places[Math.floor(Math.random() * places.length)];              
+              let finalPlace = places[Math.floor(Math.random() * places.length)]; 
+/* 豐富有趣的開運籤詩庫 */
+let luckyQuotes = [
+  &quot;✨ 今日運勢：食指大動，減肥永遠是明天的事！&quot;,
+  &quot;🌟 幸運指數：⭐⭐⭐⭐⭐ 命中注定就是這家，抗拒無效！&quot;,
+  &quot;🔥 今日宜：大口吃肉，把今天的煩惱全部吃光光～&quot;,
+  &quot;🍀 靈魂拷問：老闆，這碗能不能幫我偷偷加底！&quot;,
+  &quot;💫 隱藏彩蛋：跟這家店非常有緣，快出發別猶豫！&quot;,
+  &quot;💸 財運預警：錢錢沒有不見，只是變成你肚裡喜歡的樣子！&quot;,
+  &quot;🎯 命運の指引：神明已經幫你翻好牌了，乖乖去排隊吧！&quot;,
+  &quot;🥤 隱藏任務：今天必須順便解鎖一杯廢水！&quot;,
+  &quot;🏃‍♀️ 卡路里防護罩：今天吃進去的熱量，明天走路會自動歸零！&quot;,
+  &quot;👑 今日尊榮VIP：老闆一定會多送你兩塊肉！&quot;,
+  &quot;🔮 占卜結果：不吃這家會後悔一整天，吃了會幸福一整週！&quot;,
+  &quot;🐱 貓貓指路：本喵今天允許你放縱這一次～&quot;,
+  &quot;🤡 命運交響曲：減肥計畫在點餐的這一刻宣告徹底崩潰！&quot;,
+  &quot;🤔 嚴肅哲學：人生的意義是什麼？係食飽；呢間店嘅意義係咩？係拯救你飢餓的靈魂！&quot;,
+  &quot;💸 錢包的吶喊：「其實我可以再撐一下……」 胃：「收聲，我覺得唔得。」&quot;,
+  &quot;🛑 算命師警告：今日忌理性消費，宜盲目跟從命運的召喚去吃這間店！&quot;,
+  &quot;🕵️‍♂️ 神祕內幕：據說這家店的老闆正在店裡默默祈禱你去拯救他的營業額！&quot;,
+  &quot;🧠 腦內小劇場：天使叫你清淡飲食，惡魔叫你加底加肉——毫無懸念，惡魔贏了！&quot;,
+  &quot;📌 防呆提示：如果這家店剛好沒開，請立刻怪命運，然後毫不猶豫去吃快餐。&quot;
+];
+let randomLucky = luckyQuotes[Math.floor(Math.random() * luckyQuotes.length)];
               jQuery(&#39;#food-display&#39;).hide().html(
                 &#39;&lt;div&gt;&#39; +
                   &#39;&lt;div style=&quot;color: #059669; font-size: 1em; font-weight: bold; background: #d1fae5; padding: 4px 10px; border-radius: 12px; display: inline-block;&quot;&gt;🎉 今日終極決定！&lt;/div&gt;&#39; +
                   &#39;&lt;div class=&quot;food-text&quot; style=&quot;color: #ef4444; font-size: 1.8em; margin: 10px 0;&quot;&gt;&#39; + finalPlace + &#39;&lt;/div&gt;&#39; +
                   &#39;&lt;div style=&quot;color: #78350f; font-size: 0.85em;&quot;&gt;屬於 【&#39; + category.name + &#39;】&lt;/div&gt;&#39; +
+                      /* 新增的趣味運勢貼紙框 */
+    &#39;&lt;div style=&quot;background: #fef3c7; border: 1px dashed #f59e0b; padding: 6px 12px; border-radius: 10px; color: #b45309; font-size: 0.85em; font-weight: bold; display: inline-block;&quot;&gt;&#39; + randomLucky + &#39;&lt;/div&gt;&#39; +
                 &#39;&lt;/div&gt;&#39;
               ).fadeIn(200);
               /* 抽完後提供重新抽籤的選項 */
