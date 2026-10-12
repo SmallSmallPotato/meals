@@ -104,14 +104,23 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<tw-storydata name="Meals" startnode="1" creator="Twine" creator-version="2.12.1" format="SugarCube" format-version="2.37.3" ifid="3C4995B4-17BB-4E7A-A147-6AD15B139C97" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* 隱藏整個左側 UI 欄 */
-#ui-bar {
-  display: none;
+	<tw-storydata name="Meals" startnode="1" creator="Twine" creator-version="2.12.1" format="SugarCube" format-version="2.37.3" ifid="3C4995B4-17BB-4E7A-A147-6AD15B139C97" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* 1. 鎖定網頁捲軸，防止畫面左右搖晃 */
+html {
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
 }
 
-/* 將主畫面區域邊距歸零，讓內容置中/佔滿整個螢幕 */
+/* 隱藏整個左側 UI 欄 */
+#ui-bar {
+  display: none !important;
+}
+
+/* 讓 SugarCube 的主故事容器佔滿畫面並置中，不再被擠壓 */
 #story {
   margin-left: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 0 !important;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
@@ -131,20 +140,23 @@ body {
   align-items: center;
   min-height: 100vh;
   margin: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* 主卡片：精緻手帳立體拼貼感 */
+/* 主卡片：適合電腦與大螢幕的舒適寬度，在手機上也會自動自適應 */
 .collage-card {
   background: #ffffff;
   border: 2px solid #f59e0b;
   border-radius: 24px;
-  padding: 35px 30px;
-  max-width: 520px;
+  padding: 40px 35px;
+  max-width: 600px; /* 給予舒服的寬度，不再細長 */
   width: 90%;
   margin: 20px auto;
-  box-shadow: 0 15px 35px rgba(217, 119, 6, 0.08), 0 5px 15px rgba(0,0,0,0.04);
+  box-shadow: 0 12px 30px rgba(217, 119, 6, 0.08);
   position: relative;
   text-align: center;
+  box-sizing: border-box;
 }
 
 /* 擬真和紙膠帶飾條 */
@@ -164,7 +176,7 @@ body {
 /* 標題與副標題 */
 .collage-title {
   color: #b91c1c;
-  font-size: 1.8em;
+  font-size: 1.9em;
   font-weight: 900;
   margin-top: 8px;
   letter-spacing: 1px;
@@ -172,38 +184,38 @@ body {
 
 .collage-subtitle {
   color: #78350f;
-  font-size: 0.9em;
-  margin-bottom: 25px;
+  font-size: 0.95em;
+  margin-bottom: 22px;
   background: #fef3c7;
   display: inline-block;
-  padding: 4px 14px;
+  padding: 5px 16px;
   border-radius: 20px;
   font-weight: 500;
 }
 
-/* 結果展示區：細緻內陰影與圓角 */
+/* 結果展示區：固定最小高度，防止上下跳動 */
 .result-box {
   background: #fffbeb80;
   border: 2px dashed #fcd34d;
   border-radius: 18px;
-  padding: 28px 20px;
+  padding: 22px 20px;
   margin: 20px 0;
-  min-height: 110px;
+  min-height: 170px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
-  transition: all 0.3s ease;
 }
 
 .food-text {
-  font-size: 1.7em;
+  font-size: 1.8em;
   font-weight: 900;
   color: #991b1b;
   letter-spacing: 0.5px;
 }
 
-/* 主按鈕：流暢漸層與高級感微陰影 */
+/* 主按鈕：流暢點擊回饋 */
 .collage-card button {
   background: linear-gradient(135deg, #ef4444, #dc2626) !important;
   color: #ffffff !important;
@@ -213,30 +225,21 @@ body {
   padding: 14px 32px !important;
   border: none !important;
   border-radius: 50px !important;
-  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3) !important;
+  box-shadow: 0 6px 15px rgba(239, 68, 68, 0.3) !important;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.collage-card button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 25px rgba(239, 68, 68, 0.4) !important;
+  width: 100%;
+  box-sizing: border-box;
+  transition: transform 0.1s ease;
 }
 
 .collage-card button:active {
-  transform: translateY(1px);
-  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3) !important;
+  transform: scale(0.97);
 }
 
 /* 確定/二級按鈕：精緻森林綠漸層 */
 .secondary-btn {
   background: linear-gradient(135deg, #10b981, #059669) !important;
-  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3) !important;
-}
-.secondary-btn:hover {
-  box-shadow: 0 12px 25px rgba(16, 185, 129, 0.4) !important;
-  background: #7bbfef !important;
-  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(16, 185, 129, 0.3) !important;
 }
 
 /* 重抽/換一個按鈕：輕奢手帳貼紙風 */
@@ -244,15 +247,13 @@ body {
   background: #fffbeb !important;
   color: #b45309 !important;
   border: 1.5px solid #f59e0b !important;
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15) !important;
+  box-shadow: 0 3px 10px rgba(245, 158, 11, 0.15) !important;
   font-size: 0.95em !important;
-  padding: 10px 24px !important;
+  padding: 12px 24px !important;
   border-radius: 50px !important;
   font-weight: 700 !important;
-}
-.retry-btn:hover {
-  background: #fed062 !important;
-  transform: translateY(-1px);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* 底部返回連結：精緻膠囊標籤 */
@@ -265,12 +266,12 @@ body {
   border-radius: 20px;
   border: 1.5px solid #34d399;
   font-size: 0.9em;
-  transition: all 0.2s ease;
   display: inline-block;
+  transition: transform 0.1s ease;
 }
-.tag-link a:hover {
-  background: #d1fae5;
-  transform: translateY(-1px);
+
+.tag-link a:active {
+  transform: scale(0.97);
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Home" tags="" position="600,300" size="100,100">&lt;&lt;nobr&gt;&gt;
 /* 1. 初始化資料庫 */
 &lt;&lt;set $foodList to [
