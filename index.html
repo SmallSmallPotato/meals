@@ -104,10 +104,15 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<tw-storydata name="Meals" startnode="1" creator="Twine" creator-version="2.12.1" format="SugarCube" format-version="2.37.3" ifid="3C4995B4-17BB-4E7A-A147-6AD15B139C97" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* 1. 鎖定網頁捲軸，防止畫面左右搖晃 */
+	<tw-storydata name="Meals" startnode="1" creator="Twine" creator-version="2.12.1" format="SugarCube" format-version="2.37.3" ifid="3C4995B4-17BB-4E7A-A147-6AD15B139C97" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* 引入手帳風格的英文字體與圓體 */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
+
+/* 1. 鎖定網頁捲軸，防止畫面左右晃動 */
 html {
   overflow-y: scroll;
   -webkit-text-size-adjust: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 /* 隱藏整個左側 UI 欄 */
@@ -115,19 +120,20 @@ html {
   display: none !important;
 }
 
-/* 讓 SugarCube 的主故事容器佔滿畫面並置中，不再被擠壓 */
+/* 讓 SugarCube 的主故事容器滿版並強制置中 */
 #story {
-  margin-left: 0 !important;
+  margin: 0 auto !important;
   width: 100% !important;
   max-width: 100% !important;
   padding: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
-
-/* 全局背景：柔和奶油色搭配極細緻的暖黃圓點 */
+/* 全局背景與絕對置中設定 */
 body {
-  font-family: 'Zen Maru Gothic', cursive, sans-serif;
+  font-family: 'Zen Maru Gothic', 'Quicksand', cursive, sans-serif;
   background-color: #fffdf9;
   background-image: 
     radial-gradient(#fde68a 12%, transparent 13%),
@@ -139,20 +145,22 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  width: 100vw;
   margin: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* 主卡片：適合電腦與大螢幕的舒適寬度，在手機上也會自動自適應 */
+/* 主卡片：鎖定舒服的寬度與最小寬度，防止在大螢幕變窄長 */
 .collage-card {
   background: #ffffff;
   border: 2px solid #f59e0b;
   border-radius: 24px;
   padding: 40px 35px;
-  max-width: 600px; /* 給予舒服的寬度，不再細長 */
-  width: 90%;
-  margin: 20px auto;
+  width: 88%;
+  max-width: 580px;
+  min-width: 420px; /* 確保不管螢幕多寬，卡片絕不會變窄 */
+  margin: auto;
   box-shadow: 0 12px 30px rgba(217, 119, 6, 0.08);
   position: relative;
   text-align: center;
@@ -193,19 +201,24 @@ body {
   font-weight: 500;
 }
 
-/* 結果展示區：固定最小高度，防止上下跳動 */
+/* 結果展示區：固定足夠的最小高度，容納多行餐廳不變形 */
 .result-box {
   background: #fffbeb80;
   border: 2px dashed #fcd34d;
   border-radius: 18px;
   padding: 22px 20px;
   margin: 20px 0;
-  min-height: 170px;
+  min-height: 190px; /* 確保長餐廳清單也有足夠空間 */
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
   box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
+}
+
+/* 文字套用手帳風英文字體 (Quicksand) */
+.food-text, span, div, b {
+  font-family: 'Zen Maru Gothic', 'Quicksand', sans-serif;
 }
 
 .food-text {
@@ -215,14 +228,14 @@ body {
   letter-spacing: 0.5px;
 }
 
-/* 主按鈕：流暢點擊回饋 */
+/* 主按鈕：流暢點擊回饋與適當寬度 */
 .collage-card button {
   background: linear-gradient(135deg, #ef4444, #dc2626) !important;
   color: #ffffff !important;
-  font-family: 'Zen Maru Gothic', sans-serif !important;
-  font-size: 1.15em !important;
+  font-family: 'Zen Maru Gothic', 'Quicksand', sans-serif !important;
+  font-size: 1.1em !important;
   font-weight: 700 !important;
-  padding: 14px 32px !important;
+  padding: 14px 28px !important;
   border: none !important;
   border-radius: 50px !important;
   box-shadow: 0 6px 15px rgba(239, 68, 68, 0.3) !important;
@@ -249,7 +262,7 @@ body {
   border: 1.5px solid #f59e0b !important;
   box-shadow: 0 3px 10px rgba(245, 158, 11, 0.15) !important;
   font-size: 0.95em !important;
-  padding: 12px 24px !important;
+  padding: 12px 20px !important;
   border-radius: 50px !important;
   font-weight: 700 !important;
   width: 100%;
@@ -262,10 +275,10 @@ body {
   text-decoration: none;
   font-weight: 700;
   background: #ecfdf5;
-  padding: 8px 20px;
+  padding: 8px 18px;
   border-radius: 20px;
   border: 1.5px solid #34d399;
-  font-size: 0.9em;
+  font-size: 0.88em;
   display: inline-block;
   transition: transform 0.1s ease;
 }
