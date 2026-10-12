@@ -183,13 +183,28 @@ body {
   z-index: 10;
 }
 
-/* 標題與副標題 */
+@keyframes steam {
+  0% { transform: translateY(0px) scale(1); opacity: 0.6; }
+  50% { transform: translateY(-5px) scale(1.1); opacity: 1; }
+  100% { transform: translateY(0px) scale(1); opacity: 0.6; }
+}
+
+.food-steam {
+  display: inline-block;
+  animation: steam 1.8s ease-in-out infinite;
+  margin-right: 5px;
+}
+
+/* 標題：清晰、厚實的復古手帳紅，搭配精緻立體感 */
 .collage-title {
-  color: #b91c1c;
+  color: #b91c1c !important;                 /* 強制設定清晰的深紅色彩 */
+  -webkit-background-clip: unset !important; /* 移除透明裁剪，避免顏色變淡 */
+  -webkit-text-fill-color: unset !important;
+  text-shadow: 2px 2px 0px #fef3c7, 3px 3px 6px rgba(185, 28, 28, 0.15); /* 復古手帳立體陰影 */
   font-size: 1.9em;
   font-weight: 900;
   margin-top: 8px;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
 }
 
 .collage-subtitle {
@@ -205,17 +220,28 @@ body {
 
 /* 結果展示區：固定足夠的最小高度 */
 .result-box {
-  background: #fffbeb80;
-  border: 2px dashed #fcd34d;
-  border-radius: 18px;
-  padding: 22px 20px;
-  margin: 20px 0;
+  background: linear-gradient(135deg, #fffbeb, #fef3c7) !important;
+  border: 2px solid #f59e0b !important;
+  border-radius: 20px !important;
+  padding: 22px 20px !important;
+  margin: 20px 0 !important;
   min-height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.12);
+  position: relative;
+}
+
+/* 在便條紙右上角加上一個可愛的小裝飾圓點，模擬圖釘 */
+.result-box::after {
+  content: "📌";
+  position: absolute;
+  top: -10px;
+  right: 15px;
+  font-size: 1.2em;
+  transform: rotate(15deg);
 }
 
 /* 文字套用手帳風英文字體 (Quicksand) */
