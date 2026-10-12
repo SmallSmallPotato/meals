@@ -290,45 +290,47 @@ body {
 }
 
 /* -----------------------------------------
-   📱 手機版專屬優化（完美固定成第二張圖的大小與比例）
+   📱 手機版專屬優化（鎖定完美比例，拒絕過窄）
 ----------------------------------------- */
 @media screen and (max-width: 600px) {
-  /* 讓 body 在手機上能夠完整容納並置中卡片，留出漂亮的四周背景 */
   body {
-    padding: 15px 0 !important;
-    align-items: center !important;
+    padding: 10px 0 !important;
   }
 
   .collage-card {
-    width: 90% !important;
-    max-width: 420px !important; /* 鎖定手機上的最大寬度，像第二張圖一樣精緻 */
-    min-width: unset !important;
-    padding: 28px 20px !important;
-    margin: auto !important;     /* 上下左右絕對置中 */
+    width: 92% !important;         /* 佔手機螢幕的 92%，兩側有漂亮的均勻留白 */
+    max-width: 480px !important;  /* 允許足夠的寬度，不再變窄長 */
+    min-width: 320px !important;  /* 確保絕不會小於這個寬度 */
+    padding: 30px 20px !important;
+    margin: auto !important;
     border-radius: 22px;
+    box-sizing: border-box !important;
   }
   
   .collage-title {
-    font-size: 1.6em !important;
+    font-size: 1.7em !important;
   }
   
-  /* 鎖定結果容器的高度與內距，防止切換時過大或過長 */
+  /* 結果展示區：固定高度與內距，確保排版寬敞 */
   .result-box {
-    min-height: 160px !important;
+    min-height: 170px !important;
     max-height: 220px !important;
-    overflow-y: auto !important;  /* 如果清單較長時可輕微捲動，絕不撐破卡片 */
-    padding: 15px 12px !important;
+    overflow-y: auto !important;
+    padding: 18px 12px !important;
     margin: 15px 0 !important;
+    box-sizing: border-box !important;
   }
   
   .food-text {
-    font-size: 1.5em !important;
+    font-size: 1.6em !important;
   }
 
-  /* 調整手機上的按鈕間距與大小，避免超出卡片 */
+  /* 按鈕寬度適應卡片 */
   .collage-card button {
-    padding: 12px 20px !important;
-    font-size: 1em !important;
+    width: 100% !important;
+    padding: 13px 20px !important;
+    font-size: 1.05em !important;
+    box-sizing: border-box !important;
   }
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Home" tags="" position="600,300" size="100,100">&lt;&lt;nobr&gt;&gt;
 /* 1. 初始化資料庫 */
