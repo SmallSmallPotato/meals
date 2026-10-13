@@ -183,6 +183,51 @@ body {
   z-index: 10;
 }
 
+/* -----------------------------------------
+   📌 手帳相片對角固定膠帶（右上與左下）
+----------------------------------------- */
+
+/* 右上角膠帶 */
+.washi-tape-tr {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 90px;
+  height: 24px;
+  background-color: #fef3c7; /* 奶油底色 */
+  background-image: 
+    linear-gradient(90deg, rgba(245, 158, 11, 0.15) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(245, 158, 11, 0.15) 1px, transparent 1px);
+  background-size: 8px 8px; /* 格仔大小 */
+  transform: rotate(35deg); /* 斜角 */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  clip-path: polygon(0% 0%, 100% 0%, 97% 100%, 3% 100%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* 左下角膠帶 */
+.washi-tape-bl {
+  position: absolute;
+  bottom: 10px;
+  left: 1px;
+  width: 90px;
+  height: 24px;
+  background-color: #fff1f2;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(239, 68, 68, 0.18),
+    rgba(239, 68, 68, 0.18) 5px,
+    transparent 5px,
+    transparent 10px
+  );
+  transform: rotate(35deg); /* 互相呼應的斜角 */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  clip-path: polygon(0% 0%, 100% 0%, 97% 100%, 3% 100%);
+  z-index: 10;
+  pointer-events: none;
+}
+
 @keyframes steam {
   0% { transform: translateY(0px) scale(1); opacity: 0.6; }
   50% { transform: translateY(-5px) scale(1.1); opacity: 1; }
@@ -358,38 +403,62 @@ body {
     font-size: 1.05em !important;
     box-sizing: border-box !important;
   }
-}</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Home" tags="" position="600,300" size="100,100">&lt;&lt;nobr&gt;&gt;
-/* 1. 初始化資料庫 */
+}
+
+/* 🖼️ 精緻手帳拍立得風格相框 */
+.illustration-container {
+  margin: 15px auto 20px auto;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.illustration-img {
+  width: 95% !important;                  /* 稍微內縮，留出相紙邊框感 */
+  max-width: 100% !important;
+  height: auto !important;
+  background: #ffffff;                    /* 相紙底色 */
+  padding: 10px 10px 28px 10px;           /* 模擬拍立得下方較寬的留白 */
+  border: 1px solid #f3e8ff;              /* 極細緻的邊框 */
+  border-radius: 6px !important;          /* 拍立得的微圓角 */
+  box-shadow: 
+    0 8px 20px rgba(180, 83, 9, 0.12),    /* 主陰影 */
+    0 2px 6px rgba(0, 0, 0, 0.04);       /* 底部細緻浮雕感 */
+  transform: rotate(-0.5deg);             /* 微幅不規則傾斜，增加手帳真實感 */
+  transition: transform 0.2s ease;
+  box-sizing: border-box;
+}
+
+</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Home" tags="" position="600,300" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $foodList to [
   { name: &quot;🥣 溫暖熱粥&quot;, places: [&quot;新記雞粥&quot;, &quot;生記粥店&quot;, &quot;潮味莊&quot;], quote: &quot;暖心暖胃，正當防衛～&quot; },
   { name: &quot;🍜 彈牙粉麵&quot;, places: [&quot;南記粉麵&quot;, &quot;金銘&quot;, &quot;兩姊妹涼皮&quot;, &quot;十三姨粉麵&quot;], quote: &quot;食上一條，煩惱走掉！&quot; },
-  { name: &quot;🍚 香噴噴米飯&quot;, places: [&quot;榮式燒雞扒&quot;, &quot;名潮滷水店&quot;, &quot;大中華素食&quot;], quote: &quot;吃個好飯，趕走疲患！&quot; },
+  { name: &quot;🍚 香噴噴米飯&quot;, places: [&quot;榮式燒雞扒&quot;, &quot;名潮滷水店&quot;, &quot;盈樂&quot;, &quot;大中華素食&quot;], quote: &quot;吃個好飯，趕走疲患！&quot; },
   { name: &quot;🥟 蒸籠點心&quot;, places: [&quot;石磨腸粉&quot;, &quot;茶皇殿&quot;, &quot;客家好棧&quot;], quote: &quot;一籠接一籠，工作更從容！&quot; },
   { name: &quot;🥘 極重口味&quot;, places: [&quot;農耕記&quot;, &quot;川婆婆&quot;, &quot;雲貴川小鬍子&quot;, &quot;雲桂香米線&quot;], quote: &quot;麻辣鮮香，預防受傷！&quot; },
   { name: &quot;🍔 速食快餐&quot;, places: [&quot;嘉寶漢堡&quot;, &quot;黑布小巷&quot;, &quot;M記&quot;, &quot;KFC&quot;], quote: &quot;快樂放縱，馬上傳送～&quot; },
   { name: &quot;🍣 日韓料理&quot;, places: [&quot;星星Pho Cha&quot;, &quot;Haru Table&quot;, &quot;沖繩漁民&quot;, &quot;一川飯團&quot;, &quot;Outdark&quot;], quote: &quot;吃著日韓餐，遙望那座山&quot; },
-  { name: &quot;🥗 泰式風味&quot;, places: [&quot;泰識野&quot;, &quot;阿根&quot;, &quot;泰仔&quot;], quote: &quot;酸辣的一餐，精神了一番！&quot; },
+  { name: &quot;🥗 泰式風味&quot;, places: [&quot;泰識野&quot;, &quot;阿根&quot;, &quot;泰仔(豆姨姨)&quot;], quote: &quot;酸辣的一餐，精神了一番！&quot; },
   { name: &quot;🥖 越南美食&quot;, places: [&quot;西貢越南&quot;, &quot;Q1第一郡&quot;, &quot;河內越式料理&quot;], quote: &quot;清爽無負擔，順口不轉彎！&quot; },
   { name: &quot;🍝 意式料理&quot;, places: [&quot;紅煮意&quot;, &quot;糖果工房&quot;], quote: &quot;浪漫呈現，邪惡表現～&quot; },
   { name: &quot;🧋 港式茶餐廳&quot;, places: [&quot;光榮冰室&quot;, &quot;荷里活冰室&quot;, &quot;旺旺冰室&quot;, &quot;華康&quot;, &quot;永星&quot;], quote: &quot;地道港味，出色真味！&quot; },
   { name: &quot;🍱 澎湃住家飯&quot;, places: [&quot;住家菜&quot;, &quot;榮式燒雞扒&quot;, &quot;蛇王弟&quot;, &quot;新花&quot;], quote: &quot;家常滋味，耐人尋味～&quot; }
 ]&gt;&gt;
-/* 2. 備份可用陣列，方便作排除篩選 */
-&lt;&lt;set $availableFoods to clone($foodList)&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;
-&lt;div class=&quot;collage-card&quot;&gt;
-  &lt;div class=&quot;washi-tape&quot;&gt;&lt;/div&gt;
-  &lt;div class=&quot;collage-title&quot;&gt;🎨 是日飲食建議&lt;/div&gt;
-  &lt;div class=&quot;collage-subtitle&quot;&gt;✨ 靈魂拷問求籤筒 ✨&lt;/div&gt;
+&lt;&lt;set $availableFoods to clone($foodList)&gt;&gt;\
+&lt;&lt;/nobr&gt;&gt;\
+&lt;div class=&quot;collage-card&quot;&gt;\
+  &lt;div class=&quot;washi-tape&quot;&gt;&lt;/div&gt;\
+  &lt;div class=&quot;collage-title&quot;&gt;🎨 是日飲食建議&lt;/div&gt;\
+  &lt;div class=&quot;collage-subtitle&quot;&gt;✨ 靈魂拷問求籤筒 ✨&lt;/div&gt;\
   &lt;!-- 結果展示區域 --&gt;\
   &lt;div class=&quot;result-box&quot; id=&quot;food-display&quot;&gt;\
     &lt;div style=&quot;color: #d97706; font-size: 1.1em; font-weight: 500;&quot;&gt;
       🏷️ 隨機抽出今日美食籤！
-    &lt;/div&gt;
-  &lt;/div&gt;
+    &lt;/div&gt;&lt;/div&gt;\
   &lt;!-- 操作按鈕區域 --&gt;\
   &lt;div id=&quot;action-buttons&quot;&gt;
-    &lt;&lt;button &quot;🎲 幫我做決定！&quot;&gt;&gt;
+    &lt;&lt;button &quot;🎲 幫我做決定！&quot;&gt;&gt;\
       &lt;&lt;run
         /* 第一階段抽籤函數 */
         window.drawCategory = function() {
@@ -457,7 +526,6 @@ body {
             if (count &gt; 8) {
               clearInterval(timer);
               let finalPlace = places[Math.floor(Math.random() * places.length)]; 
-/* 豐富有趣的開運籤詩庫 */
 let luckyQuotes = [
   &quot;✨ 今日運勢：食指大動，減肥永遠是明天的事！&quot;,
   &quot;🌟 幸運指數：⭐⭐⭐⭐⭐ 命中注定就是這家，抗拒無效！&quot;,
@@ -499,44 +567,38 @@ let randomLucky = luckyQuotes[Math.floor(Math.random() * luckyQuotes.length)];
         /* 執行第一次抽籤 */
         window.drawCategory();
       &gt;&gt;
-    &lt;&lt;/button&gt;&gt;
-  &lt;/div&gt;
+    &lt;&lt;/button&gt;&gt;&lt;/div&gt;
   &lt;span class=&quot;tag-link&quot;&gt;[[📌 重新整理/返回主頁|Start]]&lt;/span&gt;
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="2" name="Start" tags="" position="600,425" size="100,100">&lt;&lt;nobr&gt;&gt;
-/* 1. 初始化資料庫 */
 &lt;&lt;set $foodList to [
   { name: &quot;🥣 溫暖熱粥&quot;, places: [&quot;新記雞粥&quot;, &quot;生記粥店&quot;, &quot;潮味莊&quot;], quote: &quot;暖心暖胃，正當防衛～&quot; },
   { name: &quot;🍜 彈牙粉麵&quot;, places: [&quot;南記粉麵&quot;, &quot;金銘&quot;, &quot;兩姊妹涼皮&quot;, &quot;十三姨粉麵&quot;], quote: &quot;食上一條，煩惱走掉！&quot; },
-  { name: &quot;🍚 香噴噴米飯&quot;, places: [&quot;榮式燒雞扒&quot;, &quot;名潮滷水店&quot;, &quot;大中華素食&quot;], quote: &quot;吃個好飯，趕走疲患！&quot; },
+  { name: &quot;🍚 香噴噴米飯&quot;, places: [&quot;榮式燒雞扒&quot;, &quot;名潮滷水店&quot;, &quot;盈樂&quot;, &quot;大中華素食&quot;], quote: &quot;吃個好飯，趕走疲患！&quot; },
   { name: &quot;🥟 蒸籠點心&quot;, places: [&quot;石磨腸粉&quot;, &quot;茶皇殿&quot;, &quot;客家好棧&quot;], quote: &quot;一籠接一籠，工作更從容！&quot; },
   { name: &quot;🥘 極重口味&quot;, places: [&quot;農耕記&quot;, &quot;川婆婆&quot;, &quot;雲貴川小鬍子&quot;, &quot;雲桂香米線&quot;], quote: &quot;麻辣鮮香，預防受傷！&quot; },
   { name: &quot;🍔 速食快餐&quot;, places: [&quot;嘉寶漢堡&quot;, &quot;黑布小巷&quot;, &quot;M記&quot;, &quot;KFC&quot;], quote: &quot;快樂放縱，馬上傳送～&quot; },
   { name: &quot;🍣 日韓料理&quot;, places: [&quot;星星Pho Cha&quot;, &quot;Haru Table&quot;, &quot;沖繩漁民&quot;, &quot;一川飯團&quot;, &quot;Outdark&quot;], quote: &quot;吃著日韓餐，遙望那座山&quot; },
-  { name: &quot;🥗 泰式風味&quot;, places: [&quot;泰識野&quot;, &quot;阿根&quot;, &quot;泰仔&quot;], quote: &quot;酸辣的一餐，精神了一番！&quot; },
+  { name: &quot;🥗 泰式風味&quot;, places: [&quot;泰識野&quot;, &quot;阿根&quot;, &quot;泰仔(豆姨姨)&quot;], quote: &quot;酸辣的一餐，精神了一番！&quot; },
   { name: &quot;🥖 越南美食&quot;, places: [&quot;西貢越南&quot;, &quot;Q1第一郡&quot;, &quot;河內越式料理&quot;], quote: &quot;清爽無負擔，順口不轉彎！&quot; },
   { name: &quot;🍝 意式料理&quot;, places: [&quot;紅煮意&quot;, &quot;糖果工房&quot;], quote: &quot;浪漫呈現，邪惡表現～&quot; },
   { name: &quot;🧋 港式茶餐廳&quot;, places: [&quot;光榮冰室&quot;, &quot;荷里活冰室&quot;, &quot;旺旺冰室&quot;, &quot;華康&quot;, &quot;永星&quot;], quote: &quot;地道港味，出色真味！&quot; },
   { name: &quot;🍱 澎湃住家飯&quot;, places: [&quot;住家菜&quot;, &quot;榮式燒雞扒&quot;, &quot;蛇王弟&quot;, &quot;新花&quot;], quote: &quot;家常滋味，耐人尋味～&quot; }
-]&gt;&gt;
-
-/* 重置可用池子 */
-&lt;&lt;set $availableFoods to clone($foodList)&gt;&gt;
+]&gt;&gt;&lt;&lt;set $availableFoods to clone($foodList)&gt;&gt;\
 &lt;&lt;/nobr&gt;&gt;
-
-&lt;div class=&quot;collage-card&quot;&gt;
-  &lt;div class=&quot;washi-tape&quot;&gt;&lt;/div&gt;
-  
-  &lt;div class=&quot;collage-title&quot;&gt;🎨 是日飲食建議&lt;/div&gt;
-  &lt;div class=&quot;collage-subtitle&quot;&gt;✨ 靈魂拷問求籤筒 ✨&lt;/div&gt;
-
-  &lt;div class=&quot;result-box&quot;&gt;
-    &lt;div style=&quot;color: #d97706; font-size: 1.1em; line-height: 1.6;&quot;&gt;
+&lt;div class=&quot;collage-card&quot;&gt;\
+  &lt;div class=&quot;washi-tape&quot;&gt;&lt;/div&gt;\
+  &lt;div class=&quot;collage-title&quot;&gt;🎨 是日飲食建議&lt;/div&gt;\
+  &lt;div class=&quot;collage-subtitle&quot;&gt;✨ 靈魂拷問求籤筒 ✨&lt;/div&gt;\
+  &lt;div class=&quot;illustration-container&quot; style=&quot;position: relative; display: inline-block; width: 100%;&quot;&gt;\
+    &lt;div class=&quot;washi-tape-tr&quot;&gt;&lt;/div&gt;\
+    &lt;div class=&quot;washi-tape-bl&quot;&gt;&lt;/div&gt;\
+    &lt;img src=&quot;https://smallsmallpotato.github.io/meals/images/Start.JPG&quot; alt=&quot;是日飲食建議手帳插畫&quot; class=&quot;illustration-img&quot;&gt;&lt;/div&gt;\
+  &lt;div class=&quot;result-box&quot;&gt;\
+    &lt;div style=&quot;color: #d97706; font-size: 1.05em; line-height: 1.6; font-weight: 500;&quot;&gt;\
       今天又在苦惱要吃什麼嗎？&lt;br&gt;
       把靈魂拷問交給運氣，搖一搖美食籤筒吧！
-    &lt;/div&gt;
-  &lt;/div&gt;
-
-  &lt;div class=&quot;tag-link&quot; style=&quot;margin-top: 15px;&quot;&gt;
+    &lt;/div&gt;&lt;/div&gt;\
+  &lt;div class=&quot;tag-link&quot; style=&quot;margin-top: 12px;&quot;&gt;\
     [[🎲 開始求籤！|Home]]
   &lt;/div&gt;
 &lt;/div&gt;</tw-passagedata></tw-storydata>
