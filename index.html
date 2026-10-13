@@ -430,7 +430,27 @@ body {
   box-sizing: border-box;
 }
 
-</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Home" tags="" position="600,300" size="100,100">&lt;&lt;nobr&gt;&gt;
+/* 🌟 讓按鈕更有日系雜誌的 Q 彈手感與暖調漸層 */
+.collage-card button {
+  background: linear-gradient(135deg, #f43f5e, #e11d48) !important; /* 更柔和誘人的莓果紅漸層 */
+  box-shadow: 0 8px 20px rgba(225, 29, 72, 0.25) !important;
+  letter-spacing: 1px;
+}
+
+/* 🌟 讓最終開運籤詩貼紙更有手作錯落感 */
+.lucky-sticker {
+  background: #fffbeb !important;
+  border: 1.5px dashed #f59e0b !important;
+  padding: 8px 14px !important;
+  border-radius: 12px !important;
+  color: #b45309 !important;
+  font-size: 0.88em !important;
+  font-weight: 700 !important;
+  display: inline-block !important;
+  margin-top: 10px !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.12) !important;
+  transform: rotate(-1deg) !important; /* 微幅傾斜，增加手貼紙感 */
+}</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Home" tags="" position="600,300" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $foodList to [
   { name: &quot;🥣 溫暖熱粥&quot;, places: [&quot;新記雞粥&quot;, &quot;生記粥店&quot;, &quot;潮味莊&quot;], quote: &quot;暖心暖胃，正當防衛～&quot; },
   { name: &quot;🍜 彈牙粉麵&quot;, places: [&quot;南記粉麵&quot;, &quot;金銘&quot;, &quot;兩姊妹涼皮&quot;, &quot;十三姨粉麵&quot;], quote: &quot;食上一條，煩惱走掉！&quot; },
@@ -508,7 +528,7 @@ body {
             $availableFoods.splice(window.currentCategoryIndex, 1);
           }
           window.drawCategory();
-        };
+        };        
         /* 第二階段抽籤函數：選具體餐廳 */
         window.confirmAndDrawPlace = function() {
           let category = window.currentCategory;
@@ -568,7 +588,7 @@ let randomLucky = luckyQuotes[Math.floor(Math.random() * luckyQuotes.length)];
         window.drawCategory();
       &gt;&gt;
     &lt;&lt;/button&gt;&gt;&lt;/div&gt;
-  &lt;span class=&quot;tag-link&quot;&gt;[[📌 重新整理/返回主頁|Start]]&lt;/span&gt;
+  &lt;span class=&quot;tag-link&quot;&gt;[[🕹️ 重新整理/返回主頁|Start]]&lt;/span&gt;
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="2" name="Start" tags="" position="600,425" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $foodList to [
   { name: &quot;🥣 溫暖熱粥&quot;, places: [&quot;新記雞粥&quot;, &quot;生記粥店&quot;, &quot;潮味莊&quot;], quote: &quot;暖心暖胃，正當防衛～&quot; },
@@ -591,7 +611,7 @@ let randomLucky = luckyQuotes[Math.floor(Math.random() * luckyQuotes.length)];
   &lt;div class=&quot;collage-subtitle&quot;&gt;✨ 靈魂拷問求籤筒 ✨&lt;/div&gt;\
     &lt;div class=&quot;result-box&quot;&gt;\
     &lt;div style=&quot;color: #d97706; font-size: 1.05em; line-height: 1.6; font-weight: 500;&quot;&gt;\
-      今天又在苦惱要吃什麼嗎？&lt;br&gt;
+      今天又在苦惱要吃什麼？&lt;br&gt;
       可以交給運氣，抽一下美食籤筒！
     &lt;/div&gt;&lt;/div&gt;\
   &lt;div class=&quot;tag-link&quot; style=&quot;margin-top: 12px;&quot;&gt;\
