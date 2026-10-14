@@ -107,30 +107,13 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 	<tw-storydata name="Meals" startnode="2" creator="Twine" creator-version="2.12.1" format="SugarCube" format-version="2.37.3" ifid="3C4995B4-17BB-4E7A-A147-6AD15B139C97" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* 引入手帳風格的英文字體與圓體 */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
 
-/* 1. 鎖定網頁捲軸 */
-html {
-  overflow-y: scroll;
-  -webkit-text-size-adjust: 100%;
-  width: 100%;
-  height: 100%;
-}
-
-#ui-bar {
-  display: none !important;
-}
-
-#story {
-  margin: 0 auto !important;
-  width: 100% !important;
-  max-width: 100% !important;
+/* 1. 全局背景與視窗鎖定 */
+html, body {
+  margin: 0 !important;
   padding: 0 !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-}
-
-/* 🌿 溫潤日系復古抹茶瓷磚 (Matcha & Cream Vintage Tile) */
-body {
+  width: 100% !important;
+  min-height: 100vh !important;
+  overflow-y: auto !important; 
   font-family: 'Zen Maru Gothic', 'Quicksand', cursive, sans-serif;
   background-color: #556b2f; 
   background-image: 
@@ -145,53 +128,63 @@ body {
   background-position: 15px 15px, 0 0, 0 0, 0 0, 30px 0, 30px -30px, 0 30px;
   background-attachment: fixed;
   color: #451a03;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  width: 100vw;
-  margin: 0;
-  box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
 
+#ui-bar {
+  display: none !important;
+}
+
+/* 🌟 鎖定 SugarCube 故事容器與轉場動畫層，防止切換頁面時大小塌陷 */
+#story, .passage {
+  margin: 0 auto !important;
+  padding: 30px 10px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
 
 /* -----------------------------------------
-   💻 主卡片：改為溫潤復古的牛皮紙質感
+   🔒 終極鎖定：黃金比例手帳卡片 (絕對不縮小)
 ----------------------------------------- */
 .collage-card {
-  /* 🌟 舊的純白色改為溫暖的復古牛皮紙底色與細緻漸層 */
-  background: linear-gradient(135deg, #fff0e6, #f7f1e3);
-  
-  /* 🌟 外層金黃色邊框 */
-  border: 2px solid #f59e0b;
-  /* 精緻的雙層復古框線 */
+  background: linear-gradient(135deg, #fff0e6, #f7f1e3) !important;
+  border: 2px solid #f59e0b !important;
   outline: 2px dashed rgba(217, 119, 6, 0.4);
-  outline-offset: -7px;
+  outline-offset: -6px;
+  border-radius: 16px !important;
   
-  border-radius: 14px;
-  padding: 36px 28px;
-  width: 550px;
-  max-width: 92%;
-  margin: auto;
+  /* 🌟 核心修復：強制固定寬度，並給予穩定的最小高度，防止抽籤時縮扁 */
+  width: 420px !important;
+  min-width: 420px !important;
+  max-width: 420px !important;
+  min-height: 640px !important; 
+  height: auto !important;
+  
+  padding: 24px 20px !important;
+  margin: auto !important;
+  
   box-shadow: 
-    0 20px 50px rgba(0, 0, 0, 0.3),
-    inset 0 0 25px rgba(217, 119, 6, 0.15); /* 內側微黃光暈，更有紙張舊化感 */
-  position: relative;
-  text-align: center;
-  box-sizing: border-box;
+    0 16px 40px rgba(0, 0, 0, 0.3),
+    inset 0 0 20px rgba(217, 119, 6, 0.12);
+  position: relative !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
 }
 
 /* 頂部和紙膠帶飾條 */
 .washi-tape {
   position: absolute;
-  top: -14px;
+  top: -12px;
   left: 50%;
   transform: translateX(-50%) rotate(-1deg);
-  width: 140px;
-  height: 28px;
+  width: 120px;
+  height: 24px;
   background: linear-gradient(90deg, rgba(252, 165, 165, 0.85), rgba(252, 211, 77, 0.85));
-  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
   clip-path: polygon(0% 0%, 100% 0%, 98% 100%, 2% 100%);
   z-index: 10;
 }
@@ -199,15 +192,15 @@ body {
 /* 📌 對角和紙膠帶 */
 .washi-tape-tr {
   position: absolute;
-  top: -6px;
+  top: -4px;
   right: 4px;
-  width: 80px;
-  height: 22px;
+  width: 70px;
+  height: 18px;
   background-color: #fef3c7;
   background-image: 
     linear-gradient(90deg, rgba(245, 158, 11, 0.2) 1px, transparent 1px),
     linear-gradient(0deg, rgba(245, 158, 11, 0.2) 1px, transparent 1px);
-  background-size: 8px 8px;
+  background-size: 6px 6px;
   transform: rotate(32deg);
   box-shadow: 0 2px 4px rgba(0,0,0,0.06);
   clip-path: polygon(0% 0%, 100% 0%, 97% 100%, 3% 100%);
@@ -217,17 +210,17 @@ body {
 
 .washi-tape-bl {
   position: absolute;
-  bottom: 8px;
+  bottom: 6px;
   left: 4px;
-  width: 80px;
-  height: 22px;
+  width: 70px;
+  height: 18px;
   background-color: #fff1f2;
   background-image: repeating-linear-gradient(
     45deg,
     rgba(239, 68, 68, 0.2),
-    rgba(239, 68, 68, 0.2) 5px,
-    transparent 5px,
-    transparent 10px
+    rgba(239, 68, 68, 0.2) 4px,
+    transparent 4px,
+    transparent 8px
   );
   transform: rotate(32deg);
   box-shadow: 0 2px 4px rgba(0,0,0,0.06);
@@ -241,28 +234,67 @@ body {
   color: #b91c1c !important;
   -webkit-text-fill-color: #b91c1c !important;
   background: transparent !important;
-  font-size: 1.85em !important;
+  font-size: 1.7em !important;
   font-weight: 900 !important;
-  margin-top: 10px !important;
-  letter-spacing: 1.2px !important;
-  text-shadow: 2px 2px 0px #fef3c7, 3px 3px 6px rgba(185, 28, 28, 0.15) !important;
+  margin-top: 6px !important;
+  letter-spacing: 1px !important;
+  text-shadow: 2px 2px 0px #fef3c7, 2px 2px 4px rgba(185, 28, 28, 0.15) !important;
 }
 
 .collage-subtitle {
   color: #78350f;
-  font-size: 0.9em;
-  margin-bottom: 16px;
+  font-size: 0.88em;
+  margin-bottom: 14px;
   background: #fef3c7;
   display: inline-block;
-  padding: 4px 16px;
+  padding: 4px 14px;
   border-radius: 12px;
   font-weight: 700;
-  box-shadow: 0 2px 5px rgba(245, 158, 11, 0.12);
+  box-shadow: 0 2px 4px rgba(245, 158, 11, 0.12);
+}
+
+/* 🍯 便條紙展示區 (鎖定固定空間，抽籤換內容時不會造成卡片塌陷) */
+.result-box {
+  background: linear-gradient(135deg, #fff1de, #e6ffe6) !important;
+  border: 1.5px solid #f59e0b !important;
+  outline: 1.5px dashed rgba(217, 119, 6, 0.35);
+  outline-offset: -4px;
+  border-radius: 10px !important;
+  padding: 16px 14px !important;
+  margin: 14px 0 !important;
+  
+  /* 🌟 核心：固定便條紙空間，讓每次抽籤結果替換時高度一致 */
+  min-height: 130px !important;
+  max-height: 180px !important;
+  overflow-y: auto !important;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  box-shadow: 0 3px 10px rgba(245, 158, 11, 0.12);
+  position: relative;
+}
+
+.result-box::after {
+  content: "📌";
+  position: absolute;
+  top: -8px;
+  right: 10px;
+  font-size: 1.1em;
+  transform: rotate(15deg);
+}
+
+.food-text {
+  font-size: 1.5em !important;
+  font-weight: 900;
+  color: #991b1b;
+  letter-spacing: 0.5px;
 }
 
 /* 🖼️ 拍立得相框 */
 .illustration-container {
-  margin: 15px auto 10px auto;
+  margin: 14px auto 6px auto;
   text-align: center;
   position: relative;
   display: inline-block;
@@ -270,51 +302,16 @@ body {
 }
 
 .illustration-img {
-  width: 98% !important;
+  width: 95% !important;
   max-width: 100% !important;
   height: auto !important;
   background: #ffffff;
-  padding: 8px 8px 24px 8px;
+  padding: 8px 8px 22px 8px;
   border: 1px solid #f3e8ff;
   border-radius: 4px !important;
-  box-shadow: 0 10px 22px rgba(180, 83, 9, 0.15);
+  box-shadow: 0 8px 16px rgba(180, 83, 9, 0.12);
   transform: rotate(-0.5deg);
   box-sizing: border-box;
-}
-
-/* 🍯 奶油便條紙展示區（加入細緻內框線） */
-.result-box {
-  background: linear-gradient(135deg, #fff1de, #e6ffe6) !important;
-  border: 2px solid #f59e0b !important;
-  outline: 1.5px dashed rgba(217, 119, 6, 0.35);
-  outline-offset: -5px;
-  
-  border-radius: 10px !important;
-  padding: 20px 16px !important;
-  margin: 16px 0 !important;
-  min-height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.12);
-  position: relative;
-}
-
-.result-box::after {
-  content: "📌";
-  position: absolute;
-  top: -10px;
-  right: 15px;
-  font-size: 1.2em;
-  transform: rotate(15deg);
-}
-
-.food-text {
-  font-size: 1.7em;
-  font-weight: 900;
-  color: #991b1b;
-  letter-spacing: 0.5px;
 }
 
 /* 🍓 誘人美食主按鈕 */
@@ -322,12 +319,12 @@ body {
   background: linear-gradient(135deg, #ef4444, #dc2626) !important;
   color: #ffffff !important;
   font-family: 'Zen Maru Gothic', 'Quicksand', sans-serif !important;
-  font-size: 1.1em !important;
+  font-size: 1.05em !important;
   font-weight: 700 !important;
-  padding: 14px 28px !important;
+  padding: 12px 20px !important;
   border: none !important;
   border-radius: 50px !important;
-  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3) !important;
+  box-shadow: 0 6px 15px rgba(239, 68, 68, 0.3) !important;
   cursor: pointer;
   width: 100%;
   box-sizing: border-box;
@@ -340,16 +337,16 @@ body {
 
 .secondary-btn {
   background: linear-gradient(135deg, #10b981, #059669) !important;
-  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3) !important;
+  box-shadow: 0 6px 15px rgba(16, 185, 129, 0.3) !important;
 }
 
 .retry-btn {
   background: #fffbeb !important;
   color: #b45309 !important;
   border: 1.5px solid #f59e0b !important;
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.12) !important;
+  box-shadow: 0 3px 10px rgba(245, 158, 11, 0.12) !important;
   font-size: 0.95em !important;
-  padding: 12px 20px !important;
+  padding: 11px 18px !important;
   border-radius: 50px !important;
   font-weight: 700 !important;
   width: 100%;
@@ -361,7 +358,7 @@ body {
   text-decoration: none;
   font-weight: 700;
   background: #ecfdf5;
-  padding: 8px 18px;
+  padding: 8px 16px;
   border-radius: 12px;
   border: 1.5px solid #34d399;
   font-size: 0.88em;
@@ -369,38 +366,17 @@ body {
   transition: transform 0.1s ease;
 }
 
-/* 📱 手機自適應優化 */
-@media screen and (max-width: 600px) {
-  body {
-    padding: 10px 0 !important;
-  }
-
-  .collage-card {
-    width: 92% !important;         /* 佔手機螢幕的 92%，兩側有漂亮的均勻留白 */
-    max-width: 450px !important;  /* 允許足夠的寬度，不再變窄長 */
-    min-width: 300px !important;  /* 確保絕不會小於這個寬度 */
-    padding: 10px 10px !important;
-    margin: auto !important;
-    border-radius: 15px;
-    box-sizing: border-box !important;
-  }
-
-  .collage-title {
-    font-size: 1.7em !important;
-  }
-}
-
 .lucky-sticker {
   background: #fffbeb !important;
   border: 1.5px dashed #f59e0b !important;
-  padding: 8px 14px !important;
+  padding: 6px 12px !important;
   border-radius: 8px !important;
   color: #b45309 !important;
-  font-size: 0.88em !important;
+  font-size: 0.85em !important;
   font-weight: 700 !important;
   display: inline-block !important;
-  margin-top: 10px !important;
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.12) !important;
+  margin-top: 8px !important;
+  box-shadow: 0 3px 10px rgba(245, 158, 11, 0.12) !important;
   transform: rotate(-1deg) !important;
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Home" tags="" position="600,300" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $foodList to [
